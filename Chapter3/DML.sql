@@ -73,7 +73,7 @@ SELECT * FROM supplier;
 -- menampilkan component
 SELECT * FROM component;
 
--- menampilkan nama, description, supplier, produk
+-- menampilkan id komponen, nama komponen, description komponen, nama supplier, alamat supplier, nama produk
 SELECT 
     component.id AS id_komponen,
     component.name AS nama_komponen,
@@ -86,3 +86,24 @@ SELECT
             JOIN component ON component.id = component_detail.id_component
             JOIN supplier ON supplier.id = component_detail.id_supplier
             JOIN products ON products.id = component_detail.id_products;
+
+
+-- menampilkan berapa banyak produk yang menggunakan component
+SELECT 
+    component.name AS nama_komponen, 
+    COUNT(products.id) AS jumlah_products
+        FROM component_detail
+            JOIN component ON component.id = component_detail.id_component
+            JOIN products ON products.id = component_detail.id_products
+                GROUP BY component.name;
+
+
+-- menampilkan berapa banyak supplier yang memasukkan component
+SELECT 
+    component.name AS nama_komponen, 
+    COUNT(supplier.id) AS jumlah_supplier
+        FROM component_detail
+            JOIN component ON component.id = component_detail.id_component
+            JOIN supplier ON supplier.id = component_detail.id_supplier
+                GROUP BY component.name;
+                
