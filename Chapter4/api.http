@@ -1,20 +1,22 @@
 
 ### API SUPPLIERS
+
+### CREATE SUPPLIER
 POST http://localhost:3000/suppliers
 Content-Type: application/json
 
 {
-    "name" : "ferdie",
+    "name" : "amat",
     "address" : "pekanbaru"
 }
 
-###
+### GET ALL SUPPLIER
 GET  http://localhost:3000/suppliers
 
-###
-GET  http://localhost:3000/suppliers/4
+### GET BY ID SUPPLIER
+GET  http://localhost:3000/suppliers/2
 
-###
+### UPDATE SUPPLIER
 PUT  http://localhost:3000/suppliers/1
 Content-Type: application/json
 
@@ -22,13 +24,15 @@ Content-Type: application/json
     "address" : "bengkalis"
 }
 
-###
-DELETE http://localhost:3000/suppliers/1
+### DELETE SUPPLIER
+DELETE http://localhost:3000/suppliers/2
 Content-Type: application/json
 
 
 
 ### API PRODUCTS
+
+### CREATE PRODUCT
 POST http://localhost:3000/products
 Content-Type: application/json
 
@@ -37,42 +41,44 @@ Content-Type: application/json
     "quantity" : 20
 }
 
-###
+### GET ALL PRODUCT
 GET  http://localhost:3000/products
 
-###
-GET  http://localhost:3000/products/4
+### GET PRODUCT BY ID
+GET  http://localhost:3000/products/3
 
-###
+### UPDATE PRODUCT
 PUT  http://localhost:3000/products/1
 Content-Type: application/json
 
 {
-    "quantity" : 40
+    "quantity" : 32
 }
 
-###
-DELETE http://localhost:3000/products/1
+### DELETE PRODUCT
+DELETE http://localhost:3000/products/2
 Content-Type: application/json
 
 
 
 ### API COMPONENTS
+
+### CREATE COMPONENT
 POST http://localhost:3000/components
 Content-Type: application/json
 
 {
     "name" : "lcd",
-    "description" : "ini adalah lcd"
+    "description" : "ini adalah lcdku"
 }
 
-###
+### GET ALL COMPONENT
 GET  http://localhost:3000/components
 
-###
+### GET COMPONENT BY ID
 GET  http://localhost:3000/components/4
 
-###
+### UPDATE COMPONENT
 PUT  http://localhost:3000/components/1
 Content-Type: application/json
 
@@ -80,6 +86,6 @@ Content-Type: application/json
     "description" : "ini adalah lcd samsung"
 }
 
-###
+### DELETE COMPONENTD
 DELETE http://localhost:3000/components/1
 Content-Type: application/json
