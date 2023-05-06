@@ -7,6 +7,7 @@ Content-Type: application/json
 
 {
     "name" : "amat",
+    "email" : "amat@gmail.com",
     "address" : "pekanbaru"
 }
 
