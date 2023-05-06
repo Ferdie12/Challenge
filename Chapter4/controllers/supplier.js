@@ -43,6 +43,21 @@ store : async (req,res,next) => {
     try {
         const {name, address} = req.body;
 
+        if(!name || !address){
+            return res.status(400).json({
+                status: false,
+                message: "name or email is required!"
+            })
+        }
+
+        const exist = await supplier.findOne({where: {name, address}});
+        if(exist){
+            return res.status(400).json({
+                status: false,
+                message: "supplier is already created!"
+            })
+        }
+
         const suppliers = await supplier.create({
             name: name,
             address : address

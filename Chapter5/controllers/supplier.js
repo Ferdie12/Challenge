@@ -1,7 +1,7 @@
 const {supplier} = require("../models")
 module.exports = {
 
-index : async (req,res,next) => {
+getAll : async (req,res,next) => {
     try {
         const suppliers = await supplier.findAll();
 
@@ -15,23 +15,26 @@ index : async (req,res,next) => {
     }
 },
 
-showDetail : async (req,res,next) => {
+getById : async (req,res,next) => {
     try {
-        const supplier_id = req.params.id
+        const supplier_id = req.params.id_supplier
         const suppliers = await supplier.findOne({where: {id: supplier_id}});
 
         if(!suppliers){
             return res.status(404).json({
                 status : false,
-                message: `cannot get supplier with supplier id ${supplier_id}`,
-                data : null
+                message: `cannot get supplier with supplier id ${supplier_id}`
             });
         }
 
         return res.status(200).json({
             status : true,
             message: "succes",
-            data : suppliers
+            data : {
+                name: suppliers.name,
+                email: suppliers.email,
+                address: suppliers.address
+            }
         });
 
     } catch (err) {
@@ -39,34 +42,39 @@ showDetail : async (req,res,next) => {
     }
 },
 
-store : async (req,res,next) => {
+create : async (req,res,next) => {
     try {
-        const {name, address} = req.body;
+        const {name, email, address} = req.body;
 
-        if(!name || !address){
+        if(!name || !email || !address){
             return res.status(400).json({
                 status: false,
-                message: "name or email is required!"
+                message: "name, email and is required!"
             })
         }
 
-        const exist = await supplier.findOne({where: {name, address}});
+        const exist = await supplier.findOne({where: {email}});
         if(exist){
             return res.status(400).json({
                 status: false,
-                message: "supplier is already created!"
+                message: "email is already created!"
             })
         }
 
         const suppliers = await supplier.create({
             name: name,
+            email: email,
             address : address
         })
         
         return res.status(201).json({
             status : true,
             message: "succes",
-            data : suppliers
+            data : {
+                name: suppliers.name,
+                email: suppliers.email,
+                address: suppliers.address
+            }
         })
     } catch (err) {
         next(err);
@@ -75,21 +83,19 @@ store : async (req,res,next) => {
 
 update : async (req,res,next) => {
     try {
-        const supplier_id = req.params.id
+        const supplier_id = req.params.id_supplier
     
         const update = await supplier.update(req.body, {where: {id: supplier_id}});
         
         if(!update[0]){
             return res.status(404).json({
                 status : false,
-                message: `cannot update supplier with supplier id ${supplier_id}`,
-                data : null
+                message: `cannot update supplier with supplier id ${supplier_id}`
             });
         }
         return res.status(200).json({
             status : true,
-            message: "succes",
-            data : update[0]
+            message: "updated succes"
         });
     } catch (err) {
         next(err)
@@ -98,21 +104,19 @@ update : async (req,res,next) => {
 
 destroy : async (req,res,next) => {
     try {
-        const supplier_id = req.params.id
+        const supplier_id = req.params.id_supplier
     
         const deleted = await supplier.destroy({where: {id: supplier_id}});
         
         if(!deleted){
             return res.status(404).json({
                 status : false,
-                message: `cannot delete supplier with supplier id ${supplier_id}`,
-                data : null
+                message: `cannot delete supplier with supplier id ${supplier_id}`
             });
         }
         return res.status(200).json({
             status : true,
-            message: "succes",
-            data : deleted
+            message: "deleted succes",
         });
     } catch (err) {
         next(err)

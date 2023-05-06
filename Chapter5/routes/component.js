@@ -3,10 +3,10 @@ const components = require("../controllers/component.js")
 
 const router = express.Router();
 
-router.get('/components', components.index);
-router.get('/components/:id', components.showDetail);
-router.post('/components', components.store);
-router.put('/components/:id', components.update);
-router.delete('/components/:id', components.destroy);
+router.get('/components', components.getAll);
+router.get('/components/:id_component', components.getById);
+router.post('/components', components.create);
+router.put('/components/:id_component', components.update);
+router.delete('/components/:id_component', components.destroy);
 
 module.exports = router;
